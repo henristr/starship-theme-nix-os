@@ -135,7 +135,7 @@ style = "fg:color_bg bg:color_yellow"
 format = "[ $symbol $shlvl ]($style)"
 
 [sudo]
-disabled = false
+disabled = true # Throws some warnings in sys log
 symbol = '󰌆 ' 
 style = "fg:color_red bg:color_yellow"
 format = '[ $symbol ]($style)'
