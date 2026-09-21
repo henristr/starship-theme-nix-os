@@ -121,7 +121,8 @@ format = '[  ]($style)[ $user ]($style)'
  
 [shell]
 disabled = false
-fish_indicator = ""
+zsh_indicator = ""
+fish_indicator = "  fish "
 bash_indicator = "  bash "
 unknown_indicator = "  shell "
 style = "fg:color_bg bg:color_yellow"
