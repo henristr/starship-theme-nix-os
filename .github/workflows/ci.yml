@@ -1,5 +1,5 @@
-# Every Arch OS install fetches starship.toml from main, so a pull request is
-# checked against Starship as Arch ships it.
+# NixOS users fetch starship.toml from main, so every pull request is checked
+# against a pinned Starship package.
 
 name: CI
 

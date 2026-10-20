@@ -1,13 +1,13 @@
 <div align="center">
 
-<p><img src="banner.png" alt="Arch OS Starship Theme: the prompt at home, and over SSH in a git repository"></p>
+<p><img src="banner.png" alt="NixOS Starship Theme: the prompt at home, and over SSH in a git repository"></p>
 
 <p>A clean <b>Nord</b> prompt that shows only what matters right now.</p>
 
 <p>
-  <a href="https://github.com/murkl/arch-os"><img src="https://img.shields.io/static/v1?label=made%20for&message=Arch%20OS&color=5e81ac&style=flat-square" alt="Made for Arch OS"></a>
+  <a href="https://github.com/NixOS/nixpkgs"><img src="https://img.shields.io/static/v1?label=made%20for&message=NixOS&color=5e81ac&style=flat-square" alt="Made for NixOS"></a>
   <a href="https://starship.rs"><img src="https://img.shields.io/static/v1?label=theme%20for&message=Starship&color=5e81ac&style=flat-square" alt="Theme for Starship"></a>
-  <a href="../LICENSE"><img src="https://img.shields.io/github/license/murkl/starship-theme-arch-os?style=flat-square&color=5e81ac" alt="License"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/henristr/starship-theme-nix-os?style=flat-square&color=5e81ac" alt="License"></a>
 </p>
 
 </div>
@@ -27,13 +27,13 @@ Each part appears only when it applies:
 ## Installation
 
 ```sh
-sudo pacman -S starship ttf-firacode-nerd
+nix profile install nixpkgs#starship nixpkgs#nerd-fonts.fira-code
 ```
 
 Set **FiraCode Nerd Font** as the terminal font, [set up your shell](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship), then fetch the theme. The same command updates it later:
 
 ```sh
-curl --proto '=https' -fsSL --create-dirs -o ~/.config/starship.toml https://raw.githubusercontent.com/murkl/starship-theme-arch-os/main/starship.toml
+curl --proto '=https' -fsSL --create-dirs -o ~/.config/starship.toml https://raw.githubusercontent.com/henristr/starship-theme-nix-os/main/starship.toml
 ```
 
 > [!CAUTION]
