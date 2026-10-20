@@ -2,7 +2,7 @@
 """Renders docs/banner.png: the name over the short prompt at home and the long
 one over SSH in a git repository, by hand after a visible change.
 
-Starship runs as tux on arch-os in throwaway namespaces, so nothing of this
+Starship runs as tux on nixos in throwaway namespaces, so nothing of this
 machine shows. Needs chromium, imagemagick, git and ttf-firacode-nerd.
 
   docs/banner.py
@@ -20,7 +20,7 @@ import tempfile
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs/banner.png"
 
-# The card of arch-os/docs/screenshots.py, in the font arch-os sets for GNOME.
+# The card of nixos/docs/screenshots.py, in the font this theme uses.
 FONT = "FiraCode Nerd Font"
 FONT_PX, LINE_PX = 15, 22
 PAD, RADIUS, SCALE = 26, 10, 2
@@ -38,7 +38,7 @@ PAINT = {"": "linear-gradient(to bottom right, {fg} 50%, {bg} 50%)"}
 
 # The machine as Starship sees it: its name, one address and the user.
 MACHINE = """
-hostname arch-os
+hostname nixos
 mount --bind "$PASSWD" /etc/passwd
 ip link add eth0 type dummy
 ip address add 192.168.1.10/24 dev eth0
@@ -137,7 +137,7 @@ def banner(short, long, tmp):
     color:{TEXT}; white-space:pre; font-variant-ligatures:none;
   }}
 </style></head><body><div class="band">
-  <div><div class="eyebrow">ARCH OS</div><div class="name">Starship Theme</div></div>
+  <div><div class="eyebrow">NIXOS</div><div class="name">Starship Theme</div></div>
   <div class="cards">{card(short)}{card(long)}</div>
 </div></body></html>""")
     # No glyph advance is wider than the font size, so the band always fits.
@@ -158,21 +158,21 @@ def main():
     found = subprocess.run(["fc-match", "-f", "%{family}", FONT],
                            capture_output=True, text=True, check=True).stdout
     if FONT not in found.split(","):
-        sys.exit(f"needs {FONT}: sudo pacman -S ttf-firacode-nerd")
+        sys.exit(f"needs {FONT}: nix profile install nixpkgs#nerd-fonts.fira-code")
 
     with tempfile.TemporaryDirectory() as name:
         tmp = pathlib.Path(name)
-        repo = tmp / "home/Projekte/arch-os"
+        repo = tmp / "home/Projekte/nixos"
         repo.mkdir(parents=True)
         (tmp / "passwd").write_text(f"tux:x:{os.getuid()}:{os.getgid()}::/home/tux:/bin/bash\n")
 
         # A repository with one change, out of reach of this user's git config.
-        git = ["git", "-C", str(repo), "-c", "user.name=tux", "-c", "user.email=tux@arch-os"]
+        git = ["git", "-C", str(repo), "-c", "user.name=tux", "-c", "user.email=tux@nixos"]
         env = os.environ | {"GIT_CONFIG_GLOBAL": "/dev/null", "GIT_CONFIG_NOSYSTEM": "1"}
-        (repo / "README.md").write_text("# Arch OS\n")
+        (repo / "README.md").write_text("# NixOS\n")
         for args in (["init", "-q", "-b", "main"], ["add", "."], ["commit", "-q", "-m", "init"]):
             subprocess.run(git + args, env=env, check=True)
-        (repo / "README.md").write_text("# Arch OS\n\nInstall Arch Linux with ease.\n")
+        (repo / "README.md").write_text("# NixOS\n\nManage NixOS with ease.\n")
 
         ssh = {"SSH_CONNECTION": "192.168.1.2 50022 192.168.1.10 22", "SHLVL": "2"}
         short = prompt(tmp, tmp / "home", "zsh")

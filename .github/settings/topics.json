@@ -1,8 +1,8 @@
 {
   "names": [
-    "archlinux",
-    "arch-linux",
-    "arch-os",
+    "nixos",
+    "nix",
+    "nixpkgs",
     "starship",
     "starship-prompt",
     "starship-config",
